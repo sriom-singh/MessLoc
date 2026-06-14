@@ -1,7 +1,5 @@
 "use client"
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,38 +8,48 @@ const NAV_COLS = [
   {
     title: "Explore",
     links: [
-      "Browse messes",
-      "Meal packages",
-      "Today's deals",
-      "Veg messes",
-      "Non-veg messes",
-      "Top rated",
+      { label: "Browse Messes", href: "/messes" },
+      { label: "Meal Packages", href: "/packages" },
+      { label: "Today's Deals", href: "/deals" },
+      { label: "Veg Messes", href: "/messes?type=veg" },
+      { label: "Non-Veg Messes", href: "/messes?type=non-veg" },
+      { label: "Top Rated", href: "/messes?sort=rating" },
     ],
   },
   {
-    title: "For owners",
+    title: "For Owners",
     links: [
-      "List your mess",
-      "Manage menu",
-      "View subscribers",
-      "Analytics",
-      "Pricing plans",
+      { label: "List Your Mess", href: "/owners/list" },
+      { label: "Manage Menu", href: "/owners/menu" },
+      { label: "Subscribers", href: "/owners/subscribers" },
+      { label: "Analytics", href: "/owners/analytics" },
+      { label: "Pricing", href: "/pricing" },
     ],
   },
   {
     title: "Company",
-    links: ["About us", "Blog", "Careers", "Contact", "Help center"],
+    links: [
+      { label: "About Us", href: "/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact", href: "/contact" },
+      { label: "Help Center", href: "/help" },
+    ],
   },
 ];
 
-const LEGAL = ["Privacy policy", "Terms of use", "Cookie policy", "Sitemap"];
-
-function SocialIcon({ label, path }:any) {
+const LEGAL = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Use", href: "/terms-and-conditions" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Sitemap", href: "/sitemap" },
+];
+function SocialIcon({ label, path }: any) {
   return (
     <a
       href="#"
       aria-label={label}
-      className="w-9 h-9 rounded-lg border border-orange-500/25 flex items-center justify-center text-stone-400 hover:border-orange-500 hover:text-orange-500 transition-colors duration-150"
+      className="w-10 h-10 rounded-lg border border-orange-500/25 hover:scale-105 flex items-center justify-center text-stone-400 hover:border-orange-500 hover:text-orange-500 transition-colors duration-150"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d={path} />
@@ -69,139 +77,93 @@ const SOCIALS = [
   },
 ];
 
-const APP_STORES = [
-  {
-    label: "App Store",
-    sub: "Download on the",
-    path: "M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z",
-  },
-  {
-    label: "Google Play",
-    sub: "Get it on",
-    path: "M3.18 23.76c.27.15.6.2.96.1l13.2-7.62-2.82-2.82-11.34 10.34zM.54 1.32C.2 1.64 0 2.14 0 2.8v18.4c0 .66.2 1.16.54 1.48l.08.08 10.3-10.3v-.24L.62 1.24l-.08.08zM20.7 10.4l-2.94-1.7-3.16 3.16 3.16 3.16 2.96-1.7c.84-.48.84-1.26-.02-1.92zM3.18.24l13.2 7.62-2.82 2.82L2.22.34l.96-.1z",
-  },
-];
+
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  function handleSubscribe() {
-
-  }
+ 
 
   return (
-    <footer className=" rounded-2xl  px-24 overflow-hidden w-full">
+    <footer className="w-full overflow-hidden border-t bg-background">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-      {/* ── Main grid ── */}
-      <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-8  pt-12 pb-8">
+        {/* ── Main grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pt-12 pb-8">
+          {/* Brand column */}
+          <div className="flex flex-col">
+            {/* Logo */}
+            <div className="flex items-center">
+              <Image src="/logosmall.svg" alt="Logo" width={40} height={40} className="mr-2" />
+              <h1 className={" text-2xl leading-5.5 flex flex-col gap-0"}>MessLoc</h1>
+            </div>
 
-        {/* Brand column */}
-        <div className="flex flex-col">
-          {/* Logo */}
-               <div className="flex items-center">
-                    <Image src="/logosmall.svg" alt="Logo" width={40} height={40} className="mr-2" />
-                    <h1 className={" text-2xl leading-5.5 flex flex-col gap-0"}>MessLoc</h1>
-                </div>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-sm">            Discover, compare, and subscribe to mess services near you. Trusted
+              by students and professionals across India.
+            </p>
 
-          <p className="mt-3 text-[13px] text-stone-400 leading-relaxed max-w-[220px]">
-            Discover, compare, and subscribe to mess services near you. Trusted
-            by students and professionals across India.
-          </p>
+            {/* Location badge */}
+            <span className="mt-3 w-fit inline-flex items-center gap-1.5 bg-primary/5 border border-orange-500/20 rounded-full px-3 py-1 text-[11px] text-primary/80 font-mono">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Dehradun · Roorkee · Haridwar
+            </span>
 
-          {/* Location badge */}
-          <span className="mt-3 w-fit inline-flex items-center gap-1.5 bg-primary/5 border border-orange-500/20 rounded-full px-3 py-1 text-[11px] text-primary/80 font-mono">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            Dehradun · Roorkee · Haridwar
-          </span>
-
-          {/* Socials */}
-          <div className="flex gap-2.5 mt-5">
-            {SOCIALS.map((s) => (
-              <SocialIcon key={s.label} {...s} />
-            ))}
+            {/* Socials */}
+            <div className="flex gap-2.5 mt-5">
+              {SOCIALS.map((s) => (
+                <SocialIcon key={s.label} {...s} />
+              ))}
+            </div>
           </div>
+
+          {/* Nav columns */}
+          {NAV_COLS.map((col) => (
+            <div key={col.title}>
+              <h4 className="text-[11px] font-medium tracking-[1.5px] uppercase text-primary/80 mb-3.5">
+                {col.title}
+              </h4>
+              <ul className="flex flex-col gap-2.5">
+                {col.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Nav columns */}
-        {NAV_COLS.map((col) => (
-          <div key={col.title}>
-            <h4 className="text-[11px] font-medium tracking-[1.5px] uppercase text-primary/80 mb-3.5">
-              {col.title}
-            </h4>
-            <ul className="flex flex-col gap-2.5">
-              {col.links.map((link) => (
-                <li key={link}>
-                  <Link
-                    href="#"
-                    className="text-[13px] dark:text-stone-300  hover:underline transition-colors duration-150"
-                  >
-                    {link}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
 
 
-      {/* ── Mid row: app stores + newsletter ── */}
-      {/* <div className="grid grid-cols-2 justify-center gap-8 px-10 py-6"> */}
 
-        {/* App stores */}
-        {/* <div>
-          <h4 className="text-[11px] font-medium tracking-[1.5px] uppercase text-orange-500 mb-3">
-            Get the app
-          </h4>
-          <div className="flex gap-3 flex-wrap">
-            {APP_STORES.map((app) => (
-              <a
-                key={app.label}
-                href="#"
-                className="flex items-center gap-2 px-3.5 py-2 border border-orange-500/25 rounded-lg hover:border-orange-500 transition-colors duration-150 no-underline"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#F97316" aria-hidden="true">
-                  <path d={app.path} />
-                </svg>
-                <div>
-                  <p className="text-[10px] text-stone-400 leading-none">{app.sub}</p>
-                  <strong className="text-[13px] font-medium text-stone-50 block mt-0.5">
-                    {app.label}
-                  </strong>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div> */}
+        <Separator className="bg-orange-500/12 " />
 
-      {/* </div> */}
-
-      <Separator className="bg-orange-500/12 " />
-
-      {/* ── Bottom bar ── */}
-      <div className="flex items-center justify-between w-full  flex-wrap gap-3 py-4">
-        <p className="text-[12px] text-stone-600 font-mono">
+        {/* ── Bottom bar ── */}
+        <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">          <p className="text-[12px] text-stone-600 font-mono">
           © 2026 MessLoc · Made with{" "}
           <span className="text-orange-500" aria-label="love">♥</span>{" "}
           in Dehradun
         </p>
-        <div className="flex gap-5 flex-wrap">
-          {LEGAL.map((l) => (
-            <a
-              key={l}
-              href="#"
-              className="text-[12px] text-stone-600 hover:text-orange-500 transition-colors duration-150"
-            >
-              {l}
-            </a>
-          ))}
+          <div className="flex flex-wrap gap-3 md:gap-5">
+            {LEGAL.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
 
+      </div>
     </footer>
   );
 }
