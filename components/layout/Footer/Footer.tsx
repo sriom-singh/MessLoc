@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import Link from "next/link";
 
 const NAV_COLS = [
   {
@@ -134,12 +135,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5">
               {col.links.map((link) => (
                 <li key={link}>
-                  <a
+                  <Link
                     href="#"
                     className="text-[13px] dark:text-stone-300  hover:underline transition-colors duration-150"
                   >
                     {link}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
