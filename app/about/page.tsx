@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SectionLabel } from "@/components/ui/sectionLabel";
+import SectionHeader from "@/components/ui/sectionHeader";
 // ── Data ────────────────────────────────────────────────────────────────────
 
 const STATS = [
@@ -94,18 +95,9 @@ export default function MessLocAbout() {
                 <div className="pointer-events-none absolute inset-0 opacity-[0.025]"
                     style={{ backgroundImage: "linear-gradient(rgba(249,115,22,1) 1px,transparent 1px),linear-gradient(90deg,rgba(249,115,22,1) 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
 
-                <div className="relative z-10 flex flex-col items-center">
-                    <SectionLabel>Our story</SectionLabel>
-                    <h1 className=" font-bold text-[48px] md:text-[60px] leading-[1.1] tracking-tight max-w-3xl">
-                        Built by a student,<br />
-                        <span className="">for every student.</span>
-                    </h1>
-                    <p className="mt-6 text-[16px] text-stone-400 leading-relaxed max-w-3xl">
-                        MessLoc started when our founder couldn't find a decent, affordable mess near his
+                <SectionHeader label="Our story" title="Built by a student,for every student." description=" MessLoc started when our founder couldn't find a decent, affordable mess near his
                         university in Dehradun. What began as a simple spreadsheet of local messes is now
-                        a platform helping thousands discover reliable meal services across India.
-                    </p>
-                </div>
+                        a platform helping thousands discover reliable meal services across India." />
             </section>
 
             <Separator className="bg-orange-500/10" />
@@ -122,21 +114,12 @@ export default function MessLocAbout() {
             {/* ── Mission ── */}
             <section className="px-6  py-16   gap-12 items-center">
                 <div className="flex flex-col items-center text-center">
-                    <SectionLabel>Our mission</SectionLabel>
-                    <h2 className=" font-bold text-[36px] md:text-[44px] leading-[1.15] tracking-tight">
-                        No one should go hungry<br />
-                        <span className="">in an unfamiliar city.</span>
-                    </h2>
-                    <p className="mt-5 text-[14px] text-stone-400 max-w-3xl leading-relaxed">
-                        Moving to a new city for studies or work is already hard enough. Finding a
+                    <SectionHeader label="Our mission" title=" No one should go hungry" description=" Moving to a new city for studies or work is already hard enough. Finding a
                         trustworthy, affordable mess that fits your diet, budget, and schedule shouldn't
-                        be an added struggle.
-                    </p>
-                    <p className="max-w-3xl text-[14px] text-stone-400 leading-relaxed">
-                        MessLoc bridges the gap between local mess operators — who rely entirely on
-                        word-of-mouth — and students and professionals who need them the most.
-                    </p>
-                    <div className="flex gap-3 mt-8">
+                        be an added struggle. MessLoc bridges the gap between local mess operators — who rely entirely on
+                        word-of-mouth — and students and professionals who need them the most."/>
+
+                    <div className="flex gap-3">
                         <Button className=" text-white h-10 px-6 ">
                             Explore messes
                         </Button>
@@ -206,11 +189,8 @@ export default function MessLocAbout() {
 
             {/* ── Values ── */}
             <section className="px-6  py-16">
-                <div className="flex flex-col items-center text-center mb-12">
-                    <SectionLabel>What we stand for</SectionLabel>
-                    <h2 className=" font-bold text-[36px] md:text-[42px] leading-tight tracking-tight">
-                        Our <span className="">values</span>
-                    </h2>
+                <div className="flex flex-col items-center text-center">
+                    <SectionHeader label="Our values" title="What we stand for" description="We built MessLoc to solve the real problems of finding food in an unfamiliar city. Here's what makes us different." />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {VALUES.map((v) => <ValueCard key={v.title} {...v} />)}
@@ -223,18 +203,11 @@ export default function MessLocAbout() {
 
             {/* ── CTA ── */}
             <section className="px-6  py-16 flex flex-col items-center text-center">
-                <SectionLabel>Join MessLoc</SectionLabel>
-                <h2 className=" font-bold text-[36px] md:text-[48px] leading-tight tracking-tight max-w-2xl">
-                    Ready to find your<br />
-                    <span className="">perfect mess?</span>
-                </h2>
-                <p className="mt-5 text-[14px] text-stone-400 max-w-lg leading-relaxed">
-                    Join 18,000+ subscribers already eating better, spending smarter, and worrying less
-                    about their next meal.
-                </p>
-                <div className="flex gap-3 mt-8 flex-wrap justify-center">
+                <SectionHeader label="Join MessLoc" title="Ready to find your perfect mess?" description="   Join 18,000+ subscribers already eating better, spending smarter, and worrying less
+                    about their next meal."/>
+                <div className="flex gap-3  flex-wrap justify-center">
                     <Button >
-                        Explore →
+                        Explore messes →
                     </Button>
                     <Button variant="outline">
                         List your mess →

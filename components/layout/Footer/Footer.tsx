@@ -80,10 +80,10 @@ const SOCIALS = [
 
 
 export default function Footer() {
- 
+
 
   return (
-    <footer className="w-full overflow-hidden border-t bg-background">
+    <footer className="w-full overflow-hidden py-[40px] border-t bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* ── Main grid ── */}
