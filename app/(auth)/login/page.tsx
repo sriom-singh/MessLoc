@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/ui/sectionLabel";
 import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 
 const features = [
     "Search by location, budget & diet",
@@ -66,7 +67,7 @@ const page = () => {
                     </Button>
                     <p className="text-sm text-center mt-1 text-stone-600 dark:text-stone-400 ">
                         Don&apos;t have an account?{" "}
-                        <span className="text-primary cursor-pointer">Sign up</span>
+                        <Link href={'signup'} className="text-primary cursor-pointer">Sign up</Link>
                     </p>
                 </form>
             </div>
