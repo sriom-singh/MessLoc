@@ -22,7 +22,7 @@ const Hero = () => {
             with MessLoc
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg lg:text-xl">
+          <p className="mt-6 max-w-2xl mx-auto lg:mx-0 text-base text-muted-foreground sm:text-lg lg:text-xl">
             Compare meal plans, pricing, reviews, and subscriptions from
             trusted mess providers. Designed for students and working
             professionals living away from home.
