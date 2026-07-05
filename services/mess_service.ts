@@ -1,12 +1,12 @@
 import axiosInstance from "@/lib/axios";
 
 export const MessService = {
-  getAll: async () => {
+  getAll: async ()=> {
     const { data } = await axiosInstance.get("/messes");
     return data;
   },
 
-  getById: async (id: number) => {
+  getById: async (id: string) => {
     const { data } = await axiosInstance.get(`/messes/${id}`);
     return data;
   },

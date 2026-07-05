@@ -12,10 +12,10 @@ import { MapPin, Menu, Search, X } from "lucide-react";
 
 const navLinks = [
     { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
     { label: "Browse Messes", href: "/messes" },
     { label: "Packages", href: "/packages" },
     { label: "For Owners", href: "/owners" },
-    { label: "About", href: "/about" },
 ];
 
 const Navbar = () => {

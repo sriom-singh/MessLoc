@@ -44,7 +44,7 @@ const LEGAL = [
   { label: "Cookie Policy", href: "/cookie-policy" },
   { label: "Sitemap", href: "/sitemap" },
 ];
-function SocialIcon({ label, path }: any) {
+function SocialIcon({ label, path }: {label: string; path: string}) {
   return (
     <a
       href="#"
@@ -83,7 +83,7 @@ export default function Footer() {
 
 
   return (
-    <footer className="w-full overflow-hidden py-[40px] border-t bg-background">
+    <footer className="w-full overflow-hidden py-10 border-t bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* ── Main grid ── */}
