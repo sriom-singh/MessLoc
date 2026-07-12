@@ -3,12 +3,29 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useAuth } from "@/providers/authProvider";
+import {
+    Avatar,
+    AvatarBadge,
+    AvatarFallback,
+    AvatarGroup,
+    AvatarGroupCount,
+    AvatarImage,
+} from "@/components/ui/avatar"
 import { ModeToggle } from "@/components/ui/darkMode";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-import { MapPin, Menu, Search, X } from "lucide-react";
+import { LogOut, MapPin, Menu, Search, X } from "lucide-react";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -20,7 +37,8 @@ const navLinks = [
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+    const { user, loading, isAuthenticated, logout } = useAuth();
+    console.log(user)
     return (
         <nav className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
@@ -73,29 +91,32 @@ const Navbar = () => {
                             </Button>
 
                             <ModeToggle />
+                            {isAuthenticated ? <ProfileDialog logout={logout} /> :
+                                <>
+                                    <Link
+                                        href="/login"
+                                        className="text-sm border rounded-md px-4 py-2 hover:bg-muted transition whitespace-nowrap"
+                                    >
+                                        Login
+                                    </Link>
 
-                            <Link
-                                href="/login"
-                                className="text-sm border rounded-md px-4 py-2 hover:bg-muted transition whitespace-nowrap"
-                            >
-                                Login
-                            </Link>
-
-                            <Button>
-                                <Link href="/register">Signup</Link>
-                            </Button>
+                                    <Button>
+                                        <Link href="/register">Signup</Link>
+                                    </Button>
+                                </>
+                            }
                         </div>
 
                         {/* Mobile / Tablet Actions */}
                         <div className="flex lg:hidden items-center gap-2 shrink-0">
                             <ModeToggle />
 
-                            <Link
+                            {!isAuthenticated && <Link
                                 href="/login"
                                 className="hidden sm:inline-block text-xs border border-primary rounded-md px-3 py-2 whitespace-nowrap"
                             >
                                 Login
-                            </Link>
+                            </Link>}
                             <Link
                                 href="/signup"
                                 className="hidden sm:inline-block text-xs bg-primary text-primary-foreground rounded-md px-3 py-2 whitespace-nowrap"
@@ -174,5 +195,45 @@ const Navbar = () => {
         </nav>
     );
 };
+
+const ProfileAvatar = ({ image }: { image: string }) => {
+
+    return (
+        <div className="flex flex-row flex-wrap items-center gap-6 md:gap-12">
+            <Avatar>
+                <AvatarImage
+                    src={image || "https://github.com/shadcn.png"}
+                    alt="@shadcn"
+                    className="grayscale"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+        </div>
+    )
+}
+
+const ProfileDialog = ({logout}:{logout:()=>void}) => {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger>
+                <ProfileAvatar image="" />
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent>
+                <DropdownMenuGroup>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Subscriptions</DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={()=>logout()} className={"bg-red-500 hover:bg-red-800"}>
+                        <LogOut /> Logout
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}
 
 export default Navbar;

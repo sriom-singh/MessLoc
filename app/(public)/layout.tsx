@@ -1,53 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "@/app/globals.css";
-import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/features/theme-provider";
+
 import Navbar from "@/components/layout/Header/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "MessLoc",
+  title: "MessLoc | Online Mess Booking platform",
   description: "MessLoc is a location-based platform that helps students and working professionals discover, compare, and subscribe to affordable nearby mess services.",
   icons: {
     icon: "/logosmall.svg",
   }
 };
 
-export default function RootLayout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
-    >
-      <body className="min-h-full flex flex-col">  
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar/>
-          {children}
-          <Footer/>
-        </ThemeProvider>
-        </body>
-    </html>
+    <main className="min-h-screen">
+      <Navbar />
+      {children}
+      <Footer />
+    </main>
   );
 }

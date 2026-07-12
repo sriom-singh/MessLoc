@@ -20,7 +20,7 @@ const MessCard = ({ mess }: MessCardProps) => {
           <span>{mess.rating}</span>
           <span className='text-[10px] text-black/60'>&#40;{mess.totalReviews}&#41;</span>
         </div>
-        <Image src={mess.images[0]} width={220} height={150} className=' w-full object-cover object-center h-44' alt={mess.name} />
+        <Image src={mess.images[0] || "/image_placeholder.jpg" } width={220} height={150} className=' w-full object-cover object-center h-44' alt={mess.name} />
       </CardHeader>
       <CardContent className='py-2 px-2 gap-3 flex flex-col'>
         <CardTitle className='leading-4.5'>{mess.name}</CardTitle>

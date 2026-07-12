@@ -30,24 +30,18 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
-    >
-      <body>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-16 items-center border-b px-4">
+          <SidebarTrigger />
+          <PageHeader />
+        </header>
 
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 items-center border-b px-4">
-              <SidebarTrigger />
-              <PageHeader/>
-            </header>
-
-            <main className="flex-1 p-6">
-              {children}
-            </main>
-          </SidebarInset>
-        </SidebarProvider>
-      </body>
-    </html >
+        <main className="flex-1 p-6">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
