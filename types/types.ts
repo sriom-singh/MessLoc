@@ -17,11 +17,23 @@ export interface Mess {
   isActive?: boolean;
   totalReviews: number;
   amenities?: Amenities[];
+  operatingHours?:string[]
+  specialty?:string;
   location: {
     latitude: number;
     longitude: number;
   };
+  plans?:Plan[]
 };
+
+export interface Plan {
+  _id: string;
+  name: string;
+  priceWeekly?: number;
+  priceMonthly?: number;
+  meals: string;
+  isActive?: boolean;
+}
 
 export enum Amenities {
   WiFi = "WiFi",

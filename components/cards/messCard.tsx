@@ -1,3 +1,6 @@
+"use client"
+
+import { useRouter } from 'next/navigation';
 import { BadgePercent, MapPin, SquareDot, Star } from 'lucide-react';
 import Image from 'next/image'
 import React from 'react'
@@ -11,7 +14,7 @@ type MessCardProps = {
 };
 
 const MessCard = ({ mess }: MessCardProps) => {
-
+  const router = useRouter()
   return (
     <Card className='p-0 w-full gap-1  max-w-md h-min  rounded-lg overflow-hidden'>
       <CardHeader className='relative p-0 max-h-2/3 rounded-t-2xl overflow-hidden'>
@@ -20,7 +23,7 @@ const MessCard = ({ mess }: MessCardProps) => {
           <span>{mess.rating}</span>
           <span className='text-[10px] text-black/60'>&#40;{mess.totalReviews}&#41;</span>
         </div>
-        <Image src={mess.images[0] || "/image_placeholder.jpg" } width={220} height={150} className=' w-full object-cover object-center h-44' alt={mess.name} />
+        <Image src={mess.images[0] || "/image_placeholder.jpg"} width={220} height={150} className=' w-full object-cover object-center h-44' alt={mess.name} />
       </CardHeader>
       <CardContent className='py-2 px-2 gap-3 flex flex-col'>
         <CardTitle className='leading-4.5'>{mess.name}</CardTitle>
@@ -31,7 +34,7 @@ const MessCard = ({ mess }: MessCardProps) => {
             <p className='text-xs'>{mess.address}</p>
           </div>
           <div className='flex gap-1 items-center'>
-            <SquareDot className={mess.foodType=="Non-Veg"?"stroke-red-500":"stroke-green-400"} size={14} />
+            <SquareDot className={mess.foodType == "Non-Veg" ? "stroke-red-500" : "stroke-green-400"} size={14} />
             <p className='text-xs'>{mess.foodType}</p>
           </div>
           <div className='flex gap-1 items-center'>
@@ -41,7 +44,7 @@ const MessCard = ({ mess }: MessCardProps) => {
 
         </div>
         <CardFooter className='flex w-full p-0 gap-2 mb-1'>
-          <Button size={'sm'} className={"flex-1"} variant={'outline'}>View Details</Button>
+          <Button size={'sm'} className={"flex-1"} onClick={()=>router.push("messes/"+(mess._id).toString()) } variant={'outline'}>View Details</Button>
           <Button size={'sm'} className={"flex-1"} variant={'default'}>Book Now</Button>
         </CardFooter>
       </CardContent>
