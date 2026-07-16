@@ -33,7 +33,7 @@ export default async function MessDetailPage({ params }: PageProps) {
                 <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6">
                     <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
                     <span>/</span>
-                    <a href="/messes" className="hover:text-foreground transition-colors">Browse Messes</a>
+                    <Link href="/messes" className="hover:text-foreground transition-colors">Browse Messes</Link>
                     <span>/</span>
                     <span className="text-foreground font-medium truncate">{data.name}</span>
                 </nav>

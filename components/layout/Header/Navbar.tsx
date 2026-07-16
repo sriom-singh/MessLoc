@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/providers/authProvider";
@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { LogOut, MapPin, Menu, Search, X } from "lucide-react";
+import { getCurrentLocation } from "@/services/getLocation";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -35,10 +36,88 @@ const navLinks = [
     { label: "For Owners", href: "/owners" },
 ];
 
+interface Address {
+    road: string,
+    hamlet: string,
+    city: string,
+    county: string,
+    state_district: string,
+    state: string,
+    "ISO3166-2-lvl4": string,
+    postcode: string,
+    country: string,
+}
+
+interface Location{
+    name:string
+    display_name:string
+    address:Address
+}
+
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user, loading, isAuthenticated, logout } = useAuth();
-    console.log(user)
+    const [location, setLocation] = useState<Location | null>(null);
+
+    async function handleLocation() {
+        try {
+            const loc = await getCurrentLocation();
+
+            if (!loc) return;
+
+            const res = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc[0]}&lon=${loc[1]}`
+            );
+
+            if (!res.ok) {
+                throw new Error("Failed to fetch location");
+            }
+
+            const data = await res.json();
+
+            console.log(data);
+
+            setLocation(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadLocation = async () => {
+            try {
+                const loc = await getCurrentLocation();
+
+                if (!loc || !isMounted) return;
+
+                const res = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc[0]}&lon=${loc[1]}`
+                );
+
+                if (!res.ok) {
+                    throw new Error("Failed to fetch location");
+                }
+
+                const data = await res.json();
+
+                console.log(data);
+
+                if (isMounted) {
+                    setLocation(data);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        void loadLocation();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
     return (
         <nav className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
@@ -78,15 +157,16 @@ const Navbar = () => {
                             <Button
                                 size="lg"
                                 variant="ghost"
+                                onClick={() => handleLocation()}
                                 className="border hover:border-primary/10 flex flex-col items-start h-auto py-2"
                             >
-                                <div className="flex text-primary items-center gap-1 text-sm">
-                                    <MapPin size={16} />
-                                    <span>Add Your Location</span>
+                                <div className="flex text-primary justify-start items-center gap-1 text-sm">
+                                    <MapPin size={14} />
+                                    <span className="truncate max-w-36">{!location?"Add Your Location":"Near "+location?.name+" Road"}</span>
                                 </div>
 
-                                <span className="text-xs text-muted-foreground">
-                                    See messes near you
+                                <span className="text-xs text-start text-muted-foreground  truncate w-44">
+                                    {!location?"See messes near you":location?.address.postcode+", "+location.address.road+", "+location.address.city}
                                 </span>
                             </Button>
 
@@ -212,7 +292,7 @@ const ProfileAvatar = ({ image }: { image: string }) => {
     )
 }
 
-const ProfileDialog = ({logout}:{logout:()=>void}) => {
+const ProfileDialog = ({ logout }: { logout: () => void }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
@@ -222,12 +302,13 @@ const ProfileDialog = ({logout}:{logout:()=>void}) => {
             <DropdownMenuContent>
                 <DropdownMenuGroup>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Link href={'/profile'}>Profile</Link></DropdownMenuItem>
                     <DropdownMenuItem>Subscriptions</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={()=>logout()} className={"bg-red-500 hover:bg-red-800"}>
+                    <DropdownMenuItem onClick={() => logout()} className={"bg-red-500 hover:bg-red-800"}>
                         <LogOut /> Logout
                     </DropdownMenuItem>
                 </DropdownMenuGroup>

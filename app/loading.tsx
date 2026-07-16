@@ -3,6 +3,6 @@ export default function Loading() {
   <div className="flex w-full
    items-center justify-center h-screen">
 
-  <h1 className="text-center">Loading...</h1>;
+  <h1 className="text-center py-44 text-2xl">Loading...</h1>;
   </div>
 }
