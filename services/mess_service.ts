@@ -1,9 +1,19 @@
 import axiosInstance from "@/lib/axios";
 
 export const MessService = {
-  getAll: async ()=> {
+  getAll: async () => {
     const { data } = await axiosInstance.get("/messes");
     return data;
+  },
+  recommendMess: async (payload: object) => {
+    try {
+
+      const { data } = await axiosInstance.post("/messes/recommend", payload);
+      return data.recommendations;
+    } catch (error) {
+      console.log(error);
+      return []
+    }
   },
 
   getById: async (id: string) => {

@@ -16,6 +16,7 @@ import MenuSection from "./MenuSection";
 import ReviewsSection from "./ReviewSection";
 import PlansSection from "./PlanSection";
 import Link from "next/link";
+import RecommendCard from "@/components/recommendCard";
 
 type PageProps = { params: Promise<{ id: string }> };
 
@@ -122,6 +123,7 @@ export default async function MessDetailPage({ params }: PageProps) {
                     ══════════════════════════════════════ */}
                 <PlansSection plans={data.plans} />
 
+                <RecommendCard mess={data}/>
             </div>
         </div>
     );
